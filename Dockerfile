@@ -42,12 +42,7 @@ RUN apk add --no-cache --update \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath zip gd \
     && apk del $PHPIZE_DEPS
 
-COPY --from=builder /var/www /app_source
-
-COPY ./docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-ENTRYPOINT ["entrypoint.sh"]
+COPY --from=builder /var/www .
 
 RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
     mkdir -p storage/app/public && \
