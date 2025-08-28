@@ -1,0 +1,43 @@
+services:
+  app-docker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    volumes:
+      - storage_data:/var/www/storage
+    networks:
+      - proxy
+
+  nginx-docker:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app-docker
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.docker-redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.docker-http.rule=Host(`docker.carlosalexandre.com.br`)"
+      - "traefik.http.routers.docker-http.entrypoints=web"
+      - "traefik.http.routers.docker-http.middlewares=docker-redirect-https"
+      - "traefik.http.routers.docker-https.rule=Host(`docker.carlosalexandre.com.br`)"
+      - "traefik.http.routers.docker-https.entrypoints=websecure"
+      - "traefik.http.routers.docker-https.tls.certresolver=myresolver"
+      - "traefik.http.routers.docker-http.service=docker-service"
+      - "traefik.http.routers.docker-https.service=docker-service"
+      - "traefik.http.services.docker-service.loadbalancer.server.port=80"
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  storage_data:
+    external: true
+    name: docker_storage_data
