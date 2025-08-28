@@ -44,15 +44,15 @@ RUN apk add --no-cache --update \
 
 COPY --from=builder /var/www /app_source
 
-RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
-    mkdir -p storage/app/public && \
-    mkdir -p storage/logs && \
-    chown -R www-data:www-data storage bootstrap/cache
-
 COPY ./docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
+
+RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
+    mkdir -p storage/app/public && \
+    mkdir -p storage/logs && \
+    chown -R www-data:www-data storage bootstrap/cache
 
 USER www-data
 
