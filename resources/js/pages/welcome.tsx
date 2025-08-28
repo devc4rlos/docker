@@ -1,9 +1,32 @@
 import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { update } from "@/actions/App/Http/Controllers/AvatarController";
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
+    const src: string = auth.user ? 'storage/' + (auth.user.avatar as string) : './avatar.png';
+
+    const { setData, post } = useForm({
+        avatar: null,
+    });
+
+    const handleFileChange = (e: HTMLFormElement) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        const file: never = e.target.files[0];
+        if (file) {
+            setData('avatar', file);
+        }
+    };
+
+    const submitAvatar = (e: HTMLFormElement) => {
+        e.preventDefault();
+        post(update.form().action, {
+            onSuccess: () => {
+            },
+        });
+    };
 
     return (
         <>
@@ -123,6 +146,16 @@ export default function Welcome() {
                                     </a>
                                 </li>
                             </ul>
+                            <div className="mt-8 flex gap-5 flex-col">
+                                <form onSubmit={submitAvatar}>
+                                    <input type="file" accept="image/*" onChange={handleFileChange} />
+                                    <button className="p-2 bg-blue-500 rounded">Submit</button>
+                                </form>
+                                <div>
+                                    <img src={src} alt="Avatar" className="relative rounded-full w-20 h-20 object-cover" />
+                                    <h3>Avatar {src}</h3>
+                                </div>
+                            </div>
                         </div>
                         <div className="relative -mb-px aspect-[335/376] w-full shrink-0 overflow-hidden rounded-t-lg bg-[#fff2f2] lg:mb-0 lg:-ml-px lg:aspect-auto lg:w-[438px] lg:rounded-t-none lg:rounded-r-lg dark:bg-[#1D0002]">
                             <svg
