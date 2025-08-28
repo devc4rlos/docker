@@ -44,10 +44,6 @@ RUN apk add --no-cache --update \
 
 COPY --from=builder /var/www .
 
-RUN php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache
-
 RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
     mkdir -p storage/app/public && \
     mkdir -p storage/logs && \
