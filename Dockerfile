@@ -64,8 +64,7 @@ RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
 
 RUN chown -R www-data:www-data storage bootstrap/cache public
 
-RUN chmod -R 775 storage
-RUN chmod -R 775 bootstrap/cache
+RUN chmod -R 775 storage bootstrap/cache
 
 EXPOSE 9000
 
