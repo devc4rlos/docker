@@ -12,6 +12,11 @@ services:
       - storage_data:/var/www/storage
     networks:
       - proxy
+    healthcheck:
+      test: [ "CMD-SHELL", "fpm-healthcheck" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   nginx-docker:
     build:
