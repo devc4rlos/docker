@@ -49,8 +49,6 @@ RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
     mkdir -p storage/logs && \
     chown -R www-data:www-data storage bootstrap/cache public
 
-USER www-data
-
 EXPOSE 9000
 
 CMD ["php-fpm"]
