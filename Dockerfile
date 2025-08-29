@@ -46,7 +46,7 @@ COPY --from=builder /var/www .
 
 RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
     mkdir -p storage/app/public && \
-    mkdir -p storage/logs \
+    mkdir -p storage/logs
 
 RUN chown -R www-data:www-data storage bootstrap/cache public
 
