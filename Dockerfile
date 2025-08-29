@@ -46,7 +46,16 @@ RUN apk add --no-cache --update \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath zip gd \
     && apk del $PHPIZE_DEPS
 
-COPY --from=builder /var/www .
+COPY --from=builder /var/www/vendor/ ./vendor/
+COPY --from=builder /var/www/public/ ./public/
+COPY --from=builder /var/www/bootstrap/ ./bootstrap/
+COPY --from=builder /var/www/config/ ./config/
+COPY --from=builder /var/www/database/ ./database/
+COPY --from=builder /var/www/resources/ ./resources/
+COPY --from=builder /var/www/routes/ ./routes/
+COPY --from=builder /var/www/storage/ ./storage/
+COPY --from=builder /var/www/artisan ./artisan
+COPY --from=builder /var/www/.env.example ./.env.example
 
 RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
     mkdir -p storage/app/public && \
