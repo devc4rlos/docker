@@ -46,8 +46,15 @@ COPY --from=builder /var/www .
 
 RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
     mkdir -p storage/app/public && \
-    mkdir -p storage/logs && \
-    chown -R www-data:www-data storage bootstrap/cache public
+    mkdir -p storage/logs \
+
+RUN chown -R www-data:www-data storage bootstrap/cache public
+
+RUN find /var/www/storage -type f -exec chmod 664 {};
+RUN find /var/www/storage -type d -exec chmod 775 {};
+
+RUN find /var/www/bootstrap/cache -type f -exec chmod 664 {};
+RUN find /var/www/bootstrap/cache -type d -exec chmod 775 {};
 
 EXPOSE 9000
 
