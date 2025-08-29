@@ -110,7 +110,7 @@ export default function Welcome() {
                                         </span>
                                     </span>
                                     <span>
-                                        Watch video tutorials at -zzzzz
+                                        Watch video tutorials at -zzzzz 222222
                                         <a
                                             href="https://laracasts.com"
                                             target="_blank"
