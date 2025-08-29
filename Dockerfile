@@ -48,8 +48,6 @@ RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
     mkdir -p storage/app/public && \
     mkdir -p storage/logs
 
-RUN php artisan storage:link
-
 RUN chown -R www-data:www-data storage bootstrap/cache public
 
 RUN chmod -R 775 storage
