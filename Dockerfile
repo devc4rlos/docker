@@ -47,6 +47,7 @@ RUN apk add --no-cache --update \
     && apk del $PHPIZE_DEPS
 
 COPY --from=builder /var/www/vendor/ ./vendor/
+COPY --from=builder /var/www/app/ ./app/
 COPY --from=builder /var/www/public/ ./public/
 COPY --from=builder /var/www/bootstrap/ ./bootstrap/
 COPY --from=builder /var/www/config/ ./config/
