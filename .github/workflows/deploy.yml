@@ -3,8 +3,12 @@ name: Deploy API to Production
 on:
   push:
     branches:
+      - develop
       - main
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - develop
+      - main
 
 jobs:
   deploy:
