@@ -30,7 +30,7 @@ export default function Welcome() {
 
     return (
         <>
-            <Head title="Welcome">
+            <Head title="Welcome Two">
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
@@ -110,7 +110,7 @@ export default function Welcome() {
                                         </span>
                                     </span>
                                     <span>
-                                        Watch video tutorials at
+                                        Watch video tutorials at -zzzzz
                                         <a
                                             href="https://laracasts.com"
                                             target="_blank"
