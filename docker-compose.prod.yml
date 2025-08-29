@@ -1,8 +1,5 @@
 services:
   app-docker:
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: app-docker
     restart: unless-stopped
     env_file:
