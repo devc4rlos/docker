@@ -9,7 +9,7 @@ services:
     volumes:
       - ./.env:/var/www/.env
       - code_data:/var/www
-      - storage_data:/var/www/storage
+      - ./storage:/var/www/storage
     networks:
       - proxy
 
