@@ -17,11 +17,15 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader --no-scripts
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
 COPY . .
 
-RUN composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
-
-RUN npm ci
+RUN composer dump-autoload --no-dev --optimize
 
 RUN npm run build
 
