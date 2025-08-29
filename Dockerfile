@@ -50,11 +50,11 @@ RUN mkdir -p storage/framework/{sessions,views,cache/data} && \
 
 RUN chown -R www-data:www-data storage bootstrap/cache public
 
-RUN find /var/www/storage -type f -exec chmod 664 {};
-RUN find /var/www/storage -type d -exec chmod 775 {};
+RUN find storage -type f -exec chmod 664 {};
+RUN find storage -type d -exec chmod 775 {};
 
-RUN find /var/www/bootstrap/cache -type f -exec chmod 664 {};
-RUN find /var/www/bootstrap/cache -type d -exec chmod 775 {};
+RUN find bootstrap/cache -type f -exec chmod 664 {};
+RUN find bootstrap/cache -type d -exec chmod 775 {};
 
 EXPOSE 9000
 
